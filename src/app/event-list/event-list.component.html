@@ -1,0 +1,21 @@
+<div class="container mt-4">
+    <div class="row">
+      <div class="col">
+        <h2>Upcoming Events</h2>
+        <div class="col"></div>
+        <button class="btn btn-success mb-3" [routerLink]="['/add-event']">Add New Event</button>
+        <input type="text" [(ngModel)]="searchQuery" placeholder="Search by title or location" (input)="filterEvents()" class="form-control mb-3">
+        <div *ngFor="let event of filteredEvents | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
+          <div class="card mb-3">
+            <div class="card-body">
+              <h5 class="card-title">{{ event.title }}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{ event.date }} | {{ event.location }}</h6>
+              <p class="card-text">{{ event.description }}</p>
+              <a [routerLink]="['/events', event.id]" class="card-link">Details</a>
+            </div>
+          </div>
+        </div>
+        <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+      </div>
+    </div>
+  </div>
